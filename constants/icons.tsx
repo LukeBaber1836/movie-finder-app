@@ -7,8 +7,9 @@ import star from "@/assets/icons/star.png";
 import play from "@/assets/icons/play.png";
 import arrow from "@/assets/icons/arrow.png";
 
+
 export const icons = {
-  home,
+  home:
   search,
   person,
   logo,

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const useFetch = <T>(fetchFunction : () => Promise<T>, autoFetch = true) => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(autoFetch);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<Error | null>(null);
 
     const fetchData = async () => {
         try {
@@ -13,7 +13,6 @@ const useFetch = <T>(fetchFunction : () => Promise<T>, autoFetch = true) => {
             const result = await fetchFunction();
             setData(result);
         } catch (error) {
-            // @ts-ignore
             setError(error instanceof Error ? error : new Error('An unexpected error occurred'));
         } finally {
             setLoading(false);
