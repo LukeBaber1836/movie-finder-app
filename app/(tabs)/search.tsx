@@ -10,6 +10,7 @@ import { icons } from '@/constants/icons'
 
 import MovieCard from '@/components/MovieCard'
 import SearchBar from '@/components/SearchBar'
+import { updateSearchCount } from '@/services/appwrite'
 
 const search = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,6 +35,11 @@ const search = () => {
     }, 500);
     return () => clearTimeout(timoutId);
   }, [searchQuery]);
+
+  useEffect(() => {
+    if(movies?.length > 0 && movies?.[0])
+      updateSearchCount(searchQuery, movies?.[0]);
+  }, [movies]);
 
 
 

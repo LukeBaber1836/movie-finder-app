@@ -1,3 +1,4 @@
+
 export const TMDB_CONFIG = {
     BASE_URL: 'https://api.themoviedb.org/3',
     API_KEY: process.env.EXPO_PUBLIC_MOVIE_API_KEY,
@@ -7,7 +8,6 @@ export const TMDB_CONFIG = {
     }
 
 }
-
 
 export const fetchMovies = async ( { query } : { query: string}) => {
     const endpoint = query
@@ -28,4 +28,23 @@ export const fetchMovies = async ( { query } : { query: string}) => {
     return data.results;
 }
 
-console.log("hello")
+export const fetchMovieDetails = async ( movieId: string ) : Promise<MovieDetails> => {
+    try{
+        const response = await fetch(
+            `${TMDB_CONFIG.BASE_URL}/movie/${movieId}`, {
+                method: "GET",
+                headers: TMDB_CONFIG.headers,
+            }
+        );
+        console.log(movieId)
+        if (!response.ok) {
+            throw new Error(`Failed to fetch movie details: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch(error) {
+        console.error('Error fetching movie details:', error);
+        throw error;
+    }
+}
